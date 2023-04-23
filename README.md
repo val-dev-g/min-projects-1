@@ -19,4 +19,4 @@ En conclusion, nous avons présenté les différentes étapes qui ont été effe
 `docker-compose up -d`
 
 # projet réalisé par :
-Valentin GUERARD, Ngoc Thao LY, Gabriello ZAFIFOMENDRAHA, Thomas MERCIER, Gaëtan ALLAH ASRA BADJINAN
+Valentin GUERARD, Ngoc Thao LY, Gabriello ZAFIFOMENDRAHA, Thomas MERCIER, Gaëtan ALLAH ASRA BADJINAN, test

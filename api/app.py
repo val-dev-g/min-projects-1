@@ -30,9 +30,6 @@ app.wsgi_app = DispatcherMiddleware(app.wsgi_app, {'/metrics': metrics})
 def generate_html():
     return render_template('index.html')
 
-# @app.route('/metrics')
-# def metrics():
-#     return metrics.export()
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -43,10 +40,6 @@ def predict():
     data = json_data['data']
     data = pd.DataFrame.from_dict(data, orient='index').transpose()
     spark_df = spark.createDataFrame(data)
-    # spark_df = spark_df.withColumn("Age", spark_df["Age"].cast(DoubleType()))
-    # spark_df = spark_df.withColumn("StockOptionLevel", spark_df["StockOptionLevel"].cast(DoubleType()))
-    # spark_df = spark_df.withColumn("TrainingTimesLastYear", spark_df["TrainingTimesLastYear"].cast(DoubleType())) 
-    # spark_df = spark_df.withColumn("YearsSinceLastPromotion", spark_df["YearsSinceLastPromotion"].cast(DoubleType()))
     prediction = model.transform(spark_df).head()
 
     duration = time.time() - start_time
@@ -55,8 +48,6 @@ def predict():
 
     app.logger.info('%s logged in successfully', prediction)
 
-    #return Response(metrics_data + '\n' + jsonify({'prediction': prediction}).encode('utf-8'), mimetype='text/plain')
-    #return Response(metrics_data + '\n' + jsonify({'prediction': prediction}), mimetype='text/plain')
     return jsonify(prediction=float(prediction.prediction), probability=float(prediction.probability[1]))
 
 if __name__ == '__main__':

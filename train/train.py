@@ -106,18 +106,12 @@ def train_model():
     # Définition du modèle Gradient Boosting
     gbt = GBTClassifier(featuresCol='features', labelCol='label')
 
-    # param_grid = ParamGridBuilder() \
-    #     .addGrid(gbt.maxDepth, [2, 4, 6]) \
-    #     .addGrid(gbt.maxBins, [20, 30]) \
-    #     .addGrid(gbt.maxIter, [10, 20, 30]) \
-    #     .build()
-    
     param_grid = ParamGridBuilder() \
-        .addGrid(gbt.maxDepth, [2]) \
-        .addGrid(gbt.maxBins, [20]) \
-        .addGrid(gbt.maxIter, [10]) \
+        .addGrid(gbt.maxDepth, [2, 4, 6]) \
+        .addGrid(gbt.maxBins, [20, 30]) \
+        .addGrid(gbt.maxIter, [10, 20, 30]) \
         .build()
-
+    
     # Définition de l'évaluateur
     evaluator = BinaryClassificationEvaluator(labelCol='label')
 
@@ -133,7 +127,6 @@ def train_model():
     predictions = gbtModel.transform(test_data)
     accuracy = evaluator.evaluate(predictions)
     print(accuracy)
-    # gbtModel.write().overwrite().save("../api/Model")
     gbtModel.write().overwrite().save("Model")
 
 train_model()
