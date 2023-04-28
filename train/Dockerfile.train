@@ -9,8 +9,9 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # Copy the training script and data files
 COPY train.py /app/train.py
 
-COPY  HR-Employee-Attrition.csv /app/HR-Employee-Attrition.csv
+COPY . /app/
+
 RUN  mkdir -p model  temp
 RUN chmod -R 777 model  temp
-# Set the entrypoint to run the training script
+
 ENTRYPOINT ["python", "train.py"]
