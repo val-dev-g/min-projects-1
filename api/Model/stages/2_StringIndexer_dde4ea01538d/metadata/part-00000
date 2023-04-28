@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1682533216654,"sparkVersion":"3.4.0","uid":"StringIndexer_dde4ea01538d","paramMap":{"outputCol":"label","inputCol":"Attrition"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_dde4ea01538d__output","stringOrderType":"frequencyDesc"}}

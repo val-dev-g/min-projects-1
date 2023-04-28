@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.OneHotEncoderModel","timestamp":1682094237499,"sparkVersion":"3.4.0","uid":"OneHotEncoder_cdd2aabb0c16","paramMap":{"outputCols":["MaritalStatusclassVec"],"inputCols":["MaritalStatusIndex"]},"defaultParamMap":{"dropLast":true,"outputCol":"OneHotEncoder_cdd2aabb0c16__output","handleInvalid":"error"}}

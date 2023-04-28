@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.OneHotEncoderModel","timestamp":1682094222951,"sparkVersion":"3.4.0","uid":"OneHotEncoder_f653981fa5ca","paramMap":{"inputCols":["BusinessTravelIndex"],"outputCols":["BusinessTravelclassVec"]},"defaultParamMap":{"dropLast":true,"handleInvalid":"error","outputCol":"OneHotEncoder_f653981fa5ca__output"}}
