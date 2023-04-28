@@ -9,8 +9,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 from pyspark.sql.functions import stddev, avg
 from prometheus_client import Counter, Gauge, Histogram
-from pyspark.metrics import MetricsSystem
-from pyspark.prometheus import initialize_exporter, stop_exporter
+# from pyspark.metrics import MetricsSystem
+# from pyspark.prometheus import initialize_exporter, stop_exporter
 from prometheus_client import CollectorRegistry
 from time import sleep
 
@@ -31,8 +31,8 @@ df = df.drop("Over18")
 df = df.drop("EmployeeCount")
 df = df.drop("StandardHours")
 
-registry = CollectorRegistry(auto_describe=True)
-initialize_exporter(registry)
+# registry = CollectorRegistry(auto_describe=True)
+# initialize_exporter(registry)
 
 # gbt = GBTClassifier(featuresCol='features', labelCol='label')
 # param_grid_gbt = ParamGridBuilder() \
@@ -243,17 +243,10 @@ def select_most_efficient_model(df):
 
 best_model_name, model, accuracy = select_most_efficient_model(df)
 
-print(best_model_name)
-print(accuracy)
 # suivre l'accuracy de notre modèle avec Promotheus
 prediction_train = Gauge('train_prediction', 'suivre la prédiction du train', ['model_name', 'dataset_name'])
 prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(accuracy)
-
 print("sent data to prometheus")
-
 model.write().overwrite().save("Model")
 
 sleep(800000)
-
-MetricsSystem.stop()
-stop_exporter()

@@ -7,12 +7,13 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the training script and data files
-COPY train.py /app/train.py
-
+# COPY train.py /app/train.py
+COPY ./train.py  .
 COPY . /app/
 
 RUN  mkdir -p model  temp
 RUN chmod -R 777 model  temp
 
+EXPOSE 4040
 
 ENTRYPOINT ["python", "train.py"]
