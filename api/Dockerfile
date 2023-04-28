@@ -1,18 +1,17 @@
 FROM jupyter/pyspark-notebook
 
-# Set the working directory
+ # Set the working directory
 WORKDIR /app
 # Install Python dependencies
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the training script and data files
-COPY train.py /app/train.py
+COPY ./app.py  .
+COPY ./templates /api/templates
+COPY . /api/ 
+# Expose port for API
+EXPOSE 5000
 
-COPY . /app/
-
-RUN  mkdir -p model  temp
-RUN chmod -R 777 model  temp
-
-
-ENTRYPOINT ["python", "train.py"]
+# Start Flask API
+CMD ["python", "app.py"]
