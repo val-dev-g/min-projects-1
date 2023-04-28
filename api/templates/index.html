@@ -9,84 +9,32 @@
 
 	<form id="prediction-form">
 
-		<label for="Age">Age:</label>
-		<input value="25" type="number" name="Age" required><br><br>
-
-		<label for="BusinessTravel">Voyages d'affaires :</label>
-		<select name="BusinessTravel" id="BusinessTravel" required>
-		  <option value="">Choisissez une option</option>
-		  <option value="Travel_Rarely">Rarement</option>
-		  <option value="Travel_Frequently">Fréquemment</option>
-		  <option value="Non-Travel">Ne voyage pas</option>
-		</select><br><br>
-
-		<label for="Department">Service :</label>
-		<select name="Department" id="Department" required>
-		  <option value="">Choisissez une option</option>
-		  <option value="Sales">Sales</option>
-		  <option value="Research & Development">Research & Development</option>
-		  <option value="Human Resources">Human Resources</option>  
-		</select><br><br>
-
-		<label for="EducationField">Diplôme technique :</label>
-		<select name="EducationField" id="EducationField" required>
-		  <option value="">Choisissez une option</option>
-		  <option value="Technical Degree">Technical Degree</option>
-		  <option value="Marketing">Marketing</option>
-		  <option value="Medical">Medical</option>  
-		  <option value="Life Sciences">Life Sciences</option>
-		  <option value="Human Resources">Human Resources</option>  
-		  <option value="Other">Other</option>
-		</select><br><br>
-
-		<label for="StockOptionLevel">Niveau d'option d'achat d'actions :</label>
-		<select name="StockOptionLevel" id="StockOptionLevel" required>
-		  <option value="">Choisissez une option</option>
-		  <option value="0">0</option>
-		  <option value="1">1</option>
-		  <option value="2">2</option>
-		  <option value="3">3</option>
-		</select><br><br> 
-
-		<label for="JobRole">Poste occupé:</label>
-		<select name="JobRole" id="JobRole" required>
-		  <option value="">Choisissez une option</option>
-		  <option value="Manufacturing Director">Manufacturing Director</option>
-		  <option value="Laboratory Technician">Laboratory Technician</option>
-		  <option value="Sales Representative">Sales Representative</option>
-		  <option value="Healthcare Representative">Healthcare Representative</option>
-		  <option value="Research Scientist">Research Scientist</option>
-		  <option value="Manager">Manager</option>
-		  <option value="Research Director">Research Director</option>
-		  <option value="Human Resources">Human Resources</option>
-		</select><br><br>
-		
-		<label for="OverTime">Heures supplémentaires :</label>
-		<select name="OverTime" id="OverTime" required>
-		  <option value="">Choisissez une option</option>
-		  <option value="No">Non</option>
-		  <option value="Yes">Oui</option>
-		</select><br><br>
-
-		<label for="YearsSinceLastPromotion">Années depuis la dernière promotion</label>
-		<input type="number" value="1" name="YearsSinceLastPromotion" required><br><br> 
-		
-		<label for="TrainingTimesLastYear">Nombre de formations suivies l'année dernière</label>
-		<input type="number" value="1" name="TrainingTimesLastYear" required><br><br>
-
-		<label for="Gender">Sexe :</label>
+		<label for="Gender">Sexe</label>
 		<select name="Gender" id="Gender" required>
 		  <option value="">Choisissez une option</option>
 		  <option value="Female">Femme</option>
 		  <option value="Male">Homme</option>
 		</select><br><br>
 
-		<label for="MaritalStatus">Statut marital :</label>
-		<select name="MaritalStatus" id="MaritalStatus" required>
+		<label for="Age">Age</label>
+		<input type="number" value="25" name="Age" required><br><br> 
+
+		<label for="MonthlyRate">Taux mensuel</label>
+		<input type="number" value="2396" name="MonthlyRate" required><br><br> 
+		
+		<label for="NumCompaniesWorked">Nombre d'entreprises pour lesquelles vous avez travaillé</label>
+		<input type="number" value="2" name="NumCompaniesWorked" required><br><br>
+
+		<label for="MonthlyIncome">Salaire mensuel</label>
+		<input type="number" value="2090" name="MonthlyIncome" required><br><br>
+
+		<label for="JobLevel">Niveau de poste :</label>
+		<select name="JobLevel" id="JobLevel" required>
 		  <option value="">Choisissez une option</option>
-		  <option value="Married">Marié</option>
-		  <option value="Single">Célibataire</option>
-		  <option value="Divorced">Divorcé</option>
+		  <option value="1">poste junior</option>
+		  <option value="2">poste intermédiaire</option>
+		  <option value="3">poste supérieur</option>
+		  <option value="4">poste exécutif</option>
 		</select><br><br>
 
 		<button type="submit">Predire l'attrition</button>
@@ -100,17 +48,12 @@
 			$('#prediction-form').submit(function(event) {
 				event.preventDefault();
 				var formData = {
-					'Age': $('input[name=Age]').val(),
-					'BusinessTravel': $('select[name=BusinessTravel]').val(),
-					'Department': $('select[name=Department]').val(),
-					'YearsSinceLastPromotion': $('input[name=YearsSinceLastPromotion]').val(),
+					'NumCompaniesWorked': $('input[name=NumCompaniesWorked]').val(),
 					'Gender': $('select[name=Gender]').val(),
-					'MaritalStatus': $('select[name=MaritalStatus]').val(),
-					'TrainingTimesLastYear': $('input[name=TrainingTimesLastYear]').val(),
-					'OverTime': $('select[name=OverTime]').val(),
-					'JobRole': $('select[name=JobRole]').val(),
-					'StockOptionLevel': $('select[name=StockOptionLevel]').val(),
-					'EducationField': $('select[name=EducationField]').val()
+					'MonthlyRate': $('input[name=MonthlyRate]').val(),
+					'MonthlyIncome': $('input[name=MonthlyIncome]').val(),
+					'Age': $('input[name=Age]').val(),
+					'JobLevel': $('select[name=JobLevel]').val(),
 				};
 				$.ajax({
 					type: 'POST',
