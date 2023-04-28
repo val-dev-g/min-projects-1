@@ -13,7 +13,5 @@ COPY . /app/
 
 RUN  mkdir -p model  temp
 RUN chmod -R 777 model  temp
-# Set the entrypoint to run the training script
-EXPOSE 4040
 
 ENTRYPOINT ["python", "train.py"]

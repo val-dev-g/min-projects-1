@@ -88,7 +88,6 @@ def convert_to_int(df):
     return df
         
 def remove_outliers(df):
-
     # Boucle pour enlever les valeurs aberrantes de chaque colonne
     for col in df.columns:
         # Calcul des statistiques pour la colonne
@@ -243,8 +242,6 @@ def select_most_efficient_model(df):
 
 best_model_name, model, accuracy = select_most_efficient_model(df)
 
-print(best_model_name)
-print(accuracy)
 # suivre l'accuracy de notre modèle avec Promotheus
 prediction_train = Gauge('train_prediction', 'suivre la prédiction du train', ['model_name', 'dataset_name'])
 prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(accuracy)
@@ -252,8 +249,3 @@ prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(accuracy)
 print("sent data to prometheus")
 
 model.write().overwrite().save("Model")
-
-sleep(800000)
-
-MetricsSystem.stop()
-stop_exporter()
