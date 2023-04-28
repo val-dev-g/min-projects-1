@@ -88,7 +88,6 @@ def convert_to_int(df):
     return df
         
 def remove_outliers(df):
-
     # Boucle pour enlever les valeurs aberrantes de chaque colonne
     for col in df.columns:
         # Calcul des statistiques pour la colonne
@@ -248,5 +247,3 @@ prediction_train = Gauge('train_prediction', 'suivre la prédiction du train', [
 prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(accuracy)
 print("sent data to prometheus")
 model.write().overwrite().save("Model")
-
-sleep(800000)
