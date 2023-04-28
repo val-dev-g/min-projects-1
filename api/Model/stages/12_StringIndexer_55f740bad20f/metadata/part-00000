@@ -1,1 +1,0 @@
-{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1682094239535,"sparkVersion":"3.4.0","uid":"StringIndexer_55f740bad20f","paramMap":{"outputCol":"OverTimeIndex","inputCol":"OverTime"},"defaultParamMap":{"handleInvalid":"error","outputCol":"StringIndexer_55f740bad20f__output","stringOrderType":"frequencyDesc"}}

@@ -88,7 +88,6 @@ def convert_to_int(df):
     return df
         
 def remove_outliers(df):
-
     # Boucle pour enlever les valeurs aberrantes de chaque colonne
     for col in df.columns:
         # Calcul des statistiques pour la colonne

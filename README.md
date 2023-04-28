@@ -10,7 +10,6 @@ Une fois les services en statut 'running', allez sur votre navigateur. Pour acc√
 
 http://localhost:5000/
 
-
 # Rapport sur le mod√®le Spark ML
 
 ## Introduction
