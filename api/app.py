@@ -1,16 +1,14 @@
 import findspark
 findspark.init()
-import json
 from flask import Flask, request, jsonify, render_template,Response
 from pyspark.sql import SparkSession
 from pyspark.ml import PipelineModel
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.classification import LogisticRegression 
 from pyspark.ml import Pipeline
-import os
-import time
 from pyspark.sql.types import StructType, StructField, DoubleType
 import pandas as pd
+import os
 
 spark = SparkSession.builder.appName('predict-attrition').getOrCreate()
 model = PipelineModel.load("Model")

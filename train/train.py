@@ -8,20 +8,18 @@ from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 from pyspark.sql.functions import stddev, avg
-from prometheus_client import Counter, Gauge, Histogram
-# from pyspark.metrics import MetricsSystem
-# from pyspark.prometheus import initialize_exporter, stop_exporter
+from prometheus_client import Counter, Gauge, Histogram, start_http_server
 from prometheus_client import CollectorRegistry
 from time import sleep
 
 spark = SparkSession.builder.appName('attrition').getOrCreate()
 file_location = "HR-Employee-Attrition.csv"
 file_type = "csv"
-# CSV options
+
 infer_schema = "false"
 first_row_is_header = "true"
 delimiter = ","
-# The applied options are for CSV files. For other file types, these will be ignored.
+
 df = spark.read.format(file_type) \
 .option("inferSchema", infer_schema) \
 .option("header", first_row_is_header) \
@@ -241,9 +239,54 @@ def select_most_efficient_model(df):
 
 
 best_model_name, model, accuracy = select_most_efficient_model(df)
+model.write().overwrite().save("Model")
+
+
+from prometheus_client import CollectorRegistry
+registry = CollectorRegistry()
+from pyspark_prometheus.spark import configure_spark_prometheus
+configure_spark_prometheus(registry)
+# Register the RMSE metric with Prometheus
+from prometheus_client import Gauge
+g = Gauge('rmse', 'RMSE for Linear Regression model')
+g.set(0.8)
+
+
 
 # suivre l'accuracy de notre modèle avec Promotheus
-prediction_train = Gauge('train_prediction', 'suivre la prédiction du train', ['model_name', 'dataset_name'])
-prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(accuracy)
-print("sent data to prometheus")
-model.write().overwrite().save("Model")
+# registry = CollectorRegistry()
+# prediction_train = Gauge('train_prediction', 'suivre la prediction du train', ['model_name', 'dataset_name'], registry=registry)
+# prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(0.8)
+# #push_to_gateway('localhost:9091', job='prediction_train', registry=registry)
+
+# print("sent data to prometheus")
+
+# import http.server
+# import socketserver
+# from prometheus_client import start_http_server, Gauge
+
+# # Create a gauge metric
+# my_gauge = Gauge('my_gauge', 'Description of gauge')
+
+# # Set the gauge value
+# my_gauge.set(42)
+
+# # Define a request handler to expose the metrics
+# class MyRequestHandler(http.server.BaseHTTPRequestHandler):
+#     def do_GET(self):
+#         if self.path == '/metrics':
+#             self.send_response(200)
+#             self.send_header('Content-Type', 'text/plain')
+#             self.end_headers()
+#             self.wfile.write(bytes(my_gauge.collect()[0].to_prometheus_str(), 'utf-8'))
+#         else:
+#             self.send_response(404)
+#             self.end_headers()
+
+# # Start the HTTP server to expose the metrics
+# PORT = 8000
+# with socketserver.TCPServer(("", PORT), MyRequestHandler) as httpd:
+#     print(f"Serving at http://localhost:{PORT}")
+#     httpd.serve_forever()
+
+sleep(1000000000)

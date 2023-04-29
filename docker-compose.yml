@@ -2,8 +2,8 @@ version: '3'
 
 services:
 
-  spark-train-2:
-      container_name: spark-train-2
+  train:
+      container_name: spark-train
       build:
         context: ./train
         dockerfile: Dockerfile.train
@@ -13,6 +13,7 @@ services:
         - prometheus
       environment:
         - SPARK_MODE=TRAIN
+        - FLASK_ENV= development
         - PROMETHEUS_URL= "http://prometheus:9090"
       ports:
         - "4040:4040"
@@ -33,7 +34,7 @@ services:
     volumes:
       - ./shared/model:/app/model
     depends_on:
-      - spark-train-2
+      - train
 
   prometheus:
     image: prom/prometheus
