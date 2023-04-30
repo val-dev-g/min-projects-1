@@ -246,7 +246,6 @@ model.write().overwrite().save("Model")
 # suivre l'accuracy de notre modèle avec Promotheus
 registry = CollectorRegistry()
 prediction_train = Gauge('train_prediction', 'follow the training', ['model_name', 'dataset_name'], registry=registry)
-prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(0.8)
-push_to_gateway('localhost:9091', job='prediction_train', registry=registry)
-
+prediction_train.labels(best_model_name, 'HR-Employee-Attrition').set(accuracy)
+push_to_gateway('host.docker.internal:9091', job='prediction_train', registry=registry)
 print("sent data to prometheus")

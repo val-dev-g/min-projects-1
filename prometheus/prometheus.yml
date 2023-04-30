@@ -2,6 +2,6 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'train'
+  - job_name: 'my_pushgateway_job'
     static_configs:
-      - targets: ['train:4040']
+      - targets: ['host.docker.internal:9091']

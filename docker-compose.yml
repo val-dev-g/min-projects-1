@@ -3,21 +3,23 @@ version: '3'
 services:
 
   train:
-      container_name: spark-train
-      build:
-        context: ./train
-        dockerfile: Dockerfile.train
-      volumes:
-        - ./shared/model:/app/model
-      depends_on:
-        - prometheus
-      environment:
-        - SPARK_MODE=TRAIN
-        - FLASK_ENV= development
-        - PROMETHEUS_URL= "http://prometheus:9090"
-      ports:
-        - "4040:4040"
-      restart: on-failure
+    container_name: spark-train
+    build:
+      context: ./train
+      dockerfile: Dockerfile.train
+    volumes:
+      - ./shared/model:/app/model
+    depends_on:
+      - prometheus
+    environment:
+      - SPARK_MODE=TRAIN
+      - FLASK_ENV= development
+      - PROMETHEUS_URL= "http://prometheus:9090"
+    ports:
+      - "4040:4040"
+    networks:
+      - prometheus-net
+    restart: always
 
   api:
     container_name: spark-app
@@ -43,6 +45,13 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
 
+  pushgateway:
+    image: prom/pushgateway:v1.4.1
+    ports:
+      - "9091:9091"
+    networks:
+      - prometheus-net
+
   grafana:
     image: grafana/grafana
     ports:
@@ -52,3 +61,6 @@ services:
       
     volumes:
       - ./grafana:/var/lib/grafana
+
+networks:
+  prometheus-net:
