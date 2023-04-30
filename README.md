@@ -64,6 +64,15 @@ Nous cherchons actuellement une solution en regardant comment utiliser la foncti
 
 Nous aimerions et espérons avoir vos retours concernant ce problème.
 
+# Rapport sur la visualisation
+
+## Grafana
+
+Nous avons décidé d'utilisé Grafana pour la visualisation et pour représenter notre accuracy pour chacun des modèles : gbt, rf et lr.
+
+Nous avons utilisé la visualisation "Bar Gauge" qui nous permet rapidement d'appércier les différences entre nos 3 modèles.
+https://drive.google.com/file/d/1HJAv1clcHnvXQq9-prd_LZQOizMDD5H9/view
+
 ## Conclusion
 En conclusion, nous avons présenté les différentes étapes qui ont été effectuées pour construire un modèle de Machine Learning avec Spark. Nous avons utilisé des techniques de visualisation et d'analyse pour comprendre le problème et nettoyé les données pour préparer le modèle. Nous avons ensuite utilisé la vectorisation des données pour la modélisation et testé différents algorithmes en faisant du fine tuning sur les hyperparamètres. Enfin, nous avons regardé les métriques d'évaluation pour garder le modèle le plus efficace.
 
