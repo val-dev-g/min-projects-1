@@ -10,6 +10,15 @@ Une fois les services en statut 'running', allez sur votre navigateur. Pour acc�
 
 http://localhost:5000/
 
+Vous pourrez également accéder à Prometheus avec ce lien :
+
+http://localhost:9090/
+
+et à Prometheus PushtoGateway sur celui ci :
+
+http://localhost:9091/
+
+
 # Rapport sur le modèle Spark ML
 
 ## Introduction
@@ -25,7 +34,13 @@ Enlever les valeurs aberrantes Convertir les données dans leur bon type Enlever
 ## Evaluation du modèle
 Enfin, nous avons regardé les métriques d'évaluation pour garder le modèle le plus efficace.
 
-## Monitoring et visualisation
+# Rapport sur le monitoring
+
+## UPDATE MONITORING - Résolution du problème
+
+Nous avons finalement réussi à récupéré les metrics de notre train en utilisant push_to_gateway , qui expose nos metrics sur le port 9091. Nous avons mis en écoute ce port dans les configurations de Prometheus et les données de notre metric d'évaluation remonte bien.
+
+## MONITORING DU PORT 4040 - Difficultés
 Pour surveiller les données d'entrainement, notre choix s'est porté sur l'application Prometheus et Grafana pour la visualisation.
 L'idée était d'écouter le fichier train.py et de récupérer l'accuracy du modèle en exposant les données vers Prometheus.
 Plusieurs difficultés se sont posés lors de l'initialisation notamment pour écouter les données du fichier train.py.
@@ -42,10 +57,6 @@ Cependant lorsque nous voulions visualiser les metrics exportés. Nous remarquio
 Nous cherchons actuellement une solution en regardant comment utiliser la fonction `push_to_gateway` pour exposer nos données sur un autre port de manière temporaire pour que Prometheus puisse les récupérer.
 
 Nous aimerions et espérons avoir vos retours concernant ce problème.
-
-## UPDATE MONITORING - Résolution du problème
-
-Nous avons finalement réussi à récupéré les metrics de notre train en utilisant push_to_gateway , qui expose nos metrics sur le port 9091. Nous avons mis en écoute ce port dans les configurations de Prometheus et les données de notre metric d'évaluation remonte bien.
 
 ## Conclusion
 En conclusion, nous avons présenté les différentes étapes qui ont été effectuées pour construire un modèle de Machine Learning avec Spark. Nous avons utilisé des techniques de visualisation et d'analyse pour comprendre le problème et nettoyé les données pour préparer le modèle. Nous avons ensuite utilisé la vectorisation des données pour la modélisation et testé différents algorithmes en faisant du fine tuning sur les hyperparamètres. Enfin, nous avons regardé les métriques d'évaluation pour garder le modèle le plus efficace.
