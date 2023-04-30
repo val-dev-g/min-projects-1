@@ -14,7 +14,7 @@ services:
     environment:
       - SPARK_MODE=TRAIN
       - FLASK_ENV= development
-      - PROMETHEUS_URL= "http://prometheus:9090"
+      - PROMETHEUS_URL= "http://host.docker.internal:9090"
     ports:
       - "4040:4040"
     networks:
@@ -58,11 +58,13 @@ services:
       - "3000:3000"
     environment:
       GF_SECURITY_ADMIN_PASSWORD: admin
-      PROMETHEUS_URL: "http://prometheus:9090"
+      PROMETHEUS_URL: "http://host.docker.internal:9090"
     volumes:
       - ./grafana:/var/lib/grafana
     depends_on:
       - prometheus
+    networks:
+      - prometheus-net
 
 networks:
   prometheus-net:

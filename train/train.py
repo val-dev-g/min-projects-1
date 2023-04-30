@@ -28,25 +28,53 @@ df = df.drop("Over18")
 df = df.drop("EmployeeCount")
 df = df.drop("StandardHours")
 
+"""
+A UTILISER POUR LA PROD
+"""
+# gbt = GBTClassifier(featuresCol='features', labelCol='label')
+# param_grid_gbt = ParamGridBuilder() \
+#     .addGrid(gbt.maxDepth, [2, 4, 6]) \
+#     .addGrid(gbt.maxBins, [20, 30]) \
+#     .addGrid(gbt.maxIter, [10, 20, 30]) \
+#     .build()
+
+# rf = RandomForestClassifier(featuresCol='features', labelCol='label')
+# param_grid_rf = ParamGridBuilder() \
+#     .addGrid(rf.maxDepth, [2, 5, 10]) \
+#     .addGrid(rf.maxBins, [10, 20, 30]) \
+#     .addGrid(rf.numTrees, [10, 50, 100]) \
+#     .addGrid(rf.impurity, ['gini', 'entropy']) \
+#     .build()
+
+# lr = LogisticRegression(featuresCol='features', labelCol='label')
+# param_grid_lr = ParamGridBuilder() \
+#     .addGrid(lr.regParam, [0.01, 0.05, 0.1]) \
+#     .addGrid(lr.elasticNetParam, [0.0, 0.5, 1.0]) \
+#     .build()
+
+"""
+A UTILISER POUR LE DEV
+"""
+
 gbt = GBTClassifier(featuresCol='features', labelCol='label')
 param_grid_gbt = ParamGridBuilder() \
-    .addGrid(gbt.maxDepth, [2, 4, 6]) \
-    .addGrid(gbt.maxBins, [20, 30]) \
-    .addGrid(gbt.maxIter, [10, 20, 30]) \
+    .addGrid(gbt.maxDepth, [2]) \
+    .addGrid(gbt.maxBins, [20]) \
+    .addGrid(gbt.maxIter, [10]) \
     .build()
 
 rf = RandomForestClassifier(featuresCol='features', labelCol='label')
 param_grid_rf = ParamGridBuilder() \
-    .addGrid(rf.maxDepth, [2, 5, 10]) \
-    .addGrid(rf.maxBins, [10, 20, 30]) \
-    .addGrid(rf.numTrees, [10, 50, 100]) \
-    .addGrid(rf.impurity, ['gini', 'entropy']) \
+    .addGrid(rf.maxDepth, [2]) \
+    .addGrid(rf.maxBins, [10]) \
+    .addGrid(rf.numTrees, [10]) \
+    .addGrid(rf.impurity, ['gini']) \
     .build()
 
 lr = LogisticRegression(featuresCol='features', labelCol='label')
 param_grid_lr = ParamGridBuilder() \
-    .addGrid(lr.regParam, [0.01, 0.05, 0.1]) \
-    .addGrid(lr.elasticNetParam, [0.0, 0.5, 1.0]) \
+    .addGrid(lr.regParam, [0.01]) \
+    .addGrid(lr.elasticNetParam, [0.0]) \
     .build()
 
 
