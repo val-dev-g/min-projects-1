@@ -1,19 +1,15 @@
 import findspark
 findspark.init()
-from flask import Flask, request, jsonify, render_template,Response
+from flask import Flask, request, jsonify, render_template
 from pyspark.sql import SparkSession
 from pyspark.ml import PipelineModel
-from pyspark.ml.feature import VectorAssembler
-from pyspark.ml.classification import LogisticRegression 
-from pyspark.ml import Pipeline
-from pyspark.sql.types import StructType, StructField, DoubleType
-import pandas as pd
 import os
+from pyspark.sql.types import DoubleType
+import pandas as pd
 
 spark = SparkSession.builder.appName('predict-attrition').getOrCreate()
 model = PipelineModel.load("Model")
 app = Flask(__name__, template_folder=os.path.abspath('templates'))
-
 
 @app.route('/')
 def generate_html():
@@ -41,5 +37,6 @@ def predict():
     return jsonify(prediction=float(prediction.prediction), probability=float(prediction.probability[1]))
 
 if __name__ == '__main__':
+    # Démarrer le serveur Prometheus HTTP sur le port 8000
 
     app.run(host='0.0.0.0', port=5000)

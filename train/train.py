@@ -8,11 +8,8 @@ from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 from pyspark.sql.functions import stddev, avg
-from prometheus_client import Counter, Gauge, Histogram, start_http_server
+from prometheus_client import  Gauge, start_http_server
 from prometheus_client import CollectorRegistry, push_to_gateway
-from time import sleep
-import http.server
-import socketserver
 
 spark = SparkSession.builder.appName('attrition').getOrCreate()
 file_location = "HR-Employee-Attrition.csv"
@@ -31,49 +28,25 @@ df = df.drop("Over18")
 df = df.drop("EmployeeCount")
 df = df.drop("StandardHours")
 
-# registry = CollectorRegistry(auto_describe=True)
-# initialize_exporter(registry)
-
-# gbt = GBTClassifier(featuresCol='features', labelCol='label')
-# param_grid_gbt = ParamGridBuilder() \
-#     .addGrid(gbt.maxDepth, [2, 4, 6]) \
-#     .addGrid(gbt.maxBins, [20, 30]) \
-#     .addGrid(gbt.maxIter, [10, 20, 30]) \
-#     .build()
-
-# rf = RandomForestClassifier(featuresCol='features', labelCol='label')
-# param_grid_rf = ParamGridBuilder() \
-#     .addGrid(rf.maxDepth, [2, 5, 10]) \
-#     .addGrid(rf.maxBins, [10, 20, 30]) \
-#     .addGrid(rf.numTrees, [10, 50, 100]) \
-#     .addGrid(rf.impurity, ['gini', 'entropy']) \
-#     .build()
-
-# lr = LogisticRegression(featuresCol='features', labelCol='label')
-# param_grid_lr = ParamGridBuilder() \
-#     .addGrid(lr.regParam, [0.01, 0.05, 0.1]) \
-#     .addGrid(lr.elasticNetParam, [0.0, 0.5, 1.0]) \
-#     .build()
-
 gbt = GBTClassifier(featuresCol='features', labelCol='label')
 param_grid_gbt = ParamGridBuilder() \
-    .addGrid(gbt.maxDepth, [2]) \
-    .addGrid(gbt.maxBins, [20]) \
-    .addGrid(gbt.maxIter, [10]) \
+    .addGrid(gbt.maxDepth, [2, 4, 6]) \
+    .addGrid(gbt.maxBins, [20, 30]) \
+    .addGrid(gbt.maxIter, [10, 20, 30]) \
     .build()
 
 rf = RandomForestClassifier(featuresCol='features', labelCol='label')
 param_grid_rf = ParamGridBuilder() \
-    .addGrid(rf.maxDepth, [2]) \
-    .addGrid(rf.maxBins, [10]) \
-    .addGrid(rf.numTrees, [10]) \
-    .addGrid(rf.impurity, ['gini']) \
+    .addGrid(rf.maxDepth, [2, 5, 10]) \
+    .addGrid(rf.maxBins, [10, 20, 30]) \
+    .addGrid(rf.numTrees, [10, 50, 100]) \
+    .addGrid(rf.impurity, ['gini', 'entropy']) \
     .build()
 
 lr = LogisticRegression(featuresCol='features', labelCol='label')
 param_grid_lr = ParamGridBuilder() \
-    .addGrid(lr.regParam, [0.01]) \
-    .addGrid(lr.elasticNetParam, [0.0]) \
+    .addGrid(lr.regParam, [0.01, 0.05, 0.1]) \
+    .addGrid(lr.elasticNetParam, [0.0, 0.5, 1.0]) \
     .build()
 
 

@@ -38,7 +38,13 @@ Enfin, nous avons regardé les métriques d'évaluation pour garder le modèle l
 
 ## UPDATE MONITORING - Résolution du problème
 
-Nous avons finalement réussi à récupéré les metrics de notre train en utilisant push_to_gateway , qui expose nos metrics sur le port 9091. Nous avons mis en écoute ce port dans les configurations de Prometheus et les données de notre metric d'évaluation remonte bien.
+Nous avons finalement réussi à récupéré les metrics de notre train en utilisant push_to_gateway , qui expose nos metrics sur le port 9091. Nous avons mis en écoute ce port dans les configurations de Prometheus et les données de notre metric d'évaluation remonte bien. ⚠️ L'entrainement des modèles prend un peu de temps à tourner, nous vous recommandons d'attendre environ 15-20min avant de pouvoir apprécier les metrics d'évaluation.
+
+Ecran pushgateaway : 
+https://drive.google.com/file/d/1cBIX_tjjzvKVcMdp16AHZnbx0uGNFsVx/view
+
+Suivi de l'évaluation par modèle :
+https://drive.google.com/file/d/1VzPEd_EaHoWGqenr0tPJ0-m65YgmnomQ/view
 
 ## MONITORING DU PORT 4040 - Difficultés
 Pour surveiller les données d'entrainement, notre choix s'est porté sur l'application Prometheus et Grafana pour la visualisation.
